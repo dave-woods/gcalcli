@@ -2551,35 +2551,37 @@ def BowChickaWowWow():
         gcal.QuickAddEvent(stringToUnicode(args[1]),
                            reminder=FLAGS.reminder)
 
+    #dw: Commented out below to remove extra prompts
+    #dw: Default values will be used, only Title/Time required
     elif (args[0] == 'add'):
         if FLAGS.prompt:
             if FLAGS.title is None:
                 PrintMsg(CLR_MAG(), "Title: ")
                 FLAGS.title = raw_input()
-            if FLAGS.where is None:
-                PrintMsg(CLR_MAG(), "Location: ")
-                FLAGS.where = raw_input()
+#            if FLAGS.where is None:
+#                PrintMsg(CLR_MAG(), "Location: ")
+#                FLAGS.where = raw_input()
             if FLAGS.when is None:
                 PrintMsg(CLR_MAG(), "When: ")
                 FLAGS.when = raw_input()
-            if FLAGS.duration is None:
-                if FLAGS.allday:
-                    PrintMsg(CLR_MAG(), "Duration (days): ")
-                else:
-                    PrintMsg(CLR_MAG(), "Duration (mins): ")
-                FLAGS.duration = raw_input()
-            if FLAGS.description is None:
-                PrintMsg(CLR_MAG(), "Description: ")
-                FLAGS.description = raw_input()
-            if not FLAGS.reminder:
-                while 1:
-                    PrintMsg(CLR_MAG(),
-                             "Enter a valid reminder or '.' to end: ")
-                    r = raw_input()
-                    if r == '.':
-                        break
-                    n, m = ParseReminder(str(r))
-                    FLAGS.reminder.append(str(n) + ' ' + m)
+#            if FLAGS.duration is None:
+#                if FLAGS.allday:
+#                    PrintMsg(CLR_MAG(), "Duration (days): ")
+#                else:
+#                    PrintMsg(CLR_MAG(), "Duration (mins): ")
+#                FLAGS.duration = raw_input()
+#            if FLAGS.description is None:
+#                PrintMsg(CLR_MAG(), "Description: ")
+#                FLAGS.description = raw_input()
+#            if not FLAGS.reminder:
+#                while 1:
+#                    PrintMsg(CLR_MAG(),
+#                             "Enter a valid reminder or '.' to end: ")
+#                    r = raw_input()
+#                    if r == '.':
+#                        break
+#                    n, m = ParseReminder(str(r))
+#                    FLAGS.reminder.append(str(n) + ' ' + m)
 
         # calculate "when" time:
         eStart, eEnd = GetTimeFromStr(FLAGS.when, FLAGS.duration)
