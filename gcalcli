@@ -1819,7 +1819,7 @@ class gcalcli:
             hLink = self._ShortenURL(newEvent['htmlLink'])
             PrintMsg(CLR_GRN(), 'New event added: %s\n' % hLink)
 
-    def AddEvent(self, eTitle, eWhere, eStart, eEnd, eDescr, eWho, reminder):
+    def AddEvent(self, eTitle, eWhere, eStart, eEnd, eDescr, eWho, reminder, eColor='0'):
 
         if len(self.cals) != 1:
             PrintErrMsg("Must specify a single calendar\n")
@@ -1844,6 +1844,9 @@ class gcalcli:
             event['description'] = stringToUnicode(eDescr)
 
         event['attendees'] = map(lambda w: {'email': stringToUnicode(w)}, eWho)
+
+        #dw: Add colorId to event
+        event['colorId'] = eColor
 
         if reminder or not self.defaultReminders:
             event['reminders'] = {'useDefault': False,
@@ -2182,6 +2185,9 @@ def GetCalColors(calNames):
 FLAGS = gflags.FLAGS
 # allow mixing of commands and options
 FLAGS.UseGnuGetOpt()
+
+#dw: Extra flag for colour-tagging events
+gflags.DEFINE_string("eColor", "0", "The colorId for the event")
 
 gflags.DEFINE_bool("help", None, "Show this help")
 gflags.DEFINE_bool("helpshort", None, "Show command help only")
@@ -2588,7 +2594,7 @@ def BowChickaWowWow():
 
         gcal.AddEvent(FLAGS.title, FLAGS.where, eStart, eEnd,
                       FLAGS.description, FLAGS.who,
-                      FLAGS.reminder)
+                      FLAGS.reminder, FLAGS.eColor)
 
     elif args[0] == 'delete':
         eStart = None
